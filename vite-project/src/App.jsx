@@ -1,6 +1,27 @@
 import "./App.css";
 import RecursosHumanos from "./Components/RecursosHumanos";
 function App() {
+  const novoFunc = () => {
+    const matric = prompt("Digite o número de matrícula:");
+    const func = prompt("Digite o nome:");
+    const valorPorHora = prompt("Digite o valor por hora:");
+    const DiasQueTabalhou = prompt("Digite os dias trabalhados:");
+    const confirmado = confirm("Você confirma suas informações?");
+    console.log(confirmado);
+    if (confirmado) {
+      const novoUser = [
+        {
+          id: matric,
+          nome: func,
+          valorHora: valorPorHora,
+          diasTrabalhados: DiasQueTabalhou,
+        },
+      ];
+      users.push(novoUser);
+      console.log("depois do user.push");
+    }
+  };
+
   const users = [
     { id: 1, nome: "Ricardo", valorHora: 4.5, diasTrabalhados: 20 },
     { id: 2, nome: "Roberto Silva", valorHora: 5.5, diasTrabalhados: 26 },
@@ -9,25 +30,24 @@ function App() {
     { id: 5, nome: "Rafael", valorHora: 5.9, diasTrabalhados: 28 },
   ];
 
-  const ordenado = users.map((u) => {
-    const total = 8 * u.valorHora * u.diasTrabalhados;
-    return total;
-  });
-
   return (
-    <div>
-      {users.map((user) => (
-        <RecursosHumanos
-          key={user.id}
-          id={user.id}
-          nome={user.nome}
-          valorHora={user.valorHora}
-          diasTrabalhados={user.diasTrabalhados}
-          salario={ordenado}
-        />
-      ))}
-    </div>
+    <>
+      {users.map((user) => {
+        const calc = 8 * user.valorHora * user.diasTrabalhados;
+        const total = calc.toFixed(2);
+        return (
+          <RecursosHumanos
+            key={user.id}
+            id={user.id}
+            nome={user.nome}
+            valorHora={user.valorHora}
+            diasTrabalhados={user.diasTrabalhados}
+            salario={total}
+          />
+        );
+      })}
+      <button onClick={novoFunc}>Adicionar</button>
+    </>
   );
 }
-
 export default App;
